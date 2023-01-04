@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="queries.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+
+    <!-- It's important to put the API script's before our own script. -->
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"
+      integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s="
+      crossorigin=""
+    ></script>
+
+    <script
+      defer
+      src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"
+    ></script>
+
+    <script
+      defer
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      defer
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script defer src="script.js"></script>
+    <title>mapty // Map your workouts</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="info hidden">
+        <h2 class="info-header">What's this?</h2>
+        <p class="info-article">
+          This is an app where you can log your workouts and see them on the
+          map. You can edit them, sort them, or delete them if you'd like.
+        </p>
+        <h2 class="info-header">How does it work?</h2>
+        <ul class="info-list">
+          <li class="info-list-item">
+            First, you click on the map (on where you want to store your
+            workout).
+          </li>
+          <li class="info-list-item">
+            Then the form will appear in which you can choose the type of
+            workout you want to store (only running or cycling for now), write
+            the distance, duration and elevation gain/cadence.
+          </li>
+          <li class="info-list-item">
+            After you write down your info, hit enter and see your workout on
+            the list.
+          </li>
+          <li class="info-list-item">
+            You can edit your list straight in the list. <br />
+            (Can't change the type for now but working on it.) <br />
+            Or you can delete it.
+          </li>
+          <li class="info-list-item">
+            Once you enter a workout, you should also see the menu items being
+            available.
+          </li>
+          <li class="info-list-item">
+            The button on the left zooms out/in on the map so that you can see
+            all the workouts you put in so far.
+          </li>
+          <li class="info-list-item">
+            The button in the middle deletes all the info you've put in so far
+            and resets the map.
+          </li>
+          <li class="info-list-item">
+            The button on the right sorts your inputs based on five different
+            conditions. (Still working on it so that you can filter your inputs
+            and sort that filtered list.)
+          </li>
+        </ul>
+        <button class="info-back-btn">That's all for now...</button>
+      </div>
+
+      <img src="logo.png" alt="Logo" class="logo" />
+
+      <div class="menu">
+        <button
+          class="menu-btn menu-btn-show"
+          data-name="show"
+          data-name2="show"
+        >
+          <ion-icon name="eye-outline" class="menu-btn-icon"></ion-icon>
+          Show All
+        </button>
+
+        <button
+          class="menu-btn menu-btn-hidden menu-btn-unshow"
+          data-name2="unshow"
+        >
+          <ion-icon
+            name="eye-off-outline"
+            class="menu-btn-icon menu-btn-icon"
+          ></ion-icon>
+          Go Back
+        </button>
+
+        <button class="menu-btn menu-btn-delete" data-name="delete">
+          <ion-icon
+            name="close-circle-outline"
+            class="menu-btn-icon menu-btn-icon-cross"
+          ></ion-icon>
+          Delete All
+        </button>
+        <button class="menu-btn menu-btn-sort" data-name="sort">
+          <ion-icon
+            name="arrow-down-circle-outline"
+            class="menu-btn-icon"
+          ></ion-icon>
+          Sort
+        </button>
+      </div>
+
+      <ul class="workouts">
+        <div
+          class="dropdown-item dropdown-item__show-warning hidden"
+          data-name="show-warning"
+        >
+          There are no activity yet.
+          <span>This message will dissapear in 3 seconds...</span>
+        </div>
+        <div
+          class="dropdown-item dropdown-item__show hidden"
+          data-name="show"
+          data-name2="unshow"
+        >
+          Showing all your activity.
+          <span>(You can close this by clicking the button again)</span>
+        </div>
+        <div
+          class="dropdown-item dropdown-item__delete hidden"
+          data-name="delete"
+        >
+          Are you sure you want to delete all?
+          <div class="delete-buttons">
+            <button
+              class="delete-btn delete-btn__cancel"
+              data-name="cancel-btn"
+            >
+              Cancel
+            </button>
+            <button
+              class="delete-btn delete-btn__delete"
+              data-name="delete-btn"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+        <div class="dropdown-item dropdown-item__sort hidden" data-name="sort">
+          <ul class="sort-list">
+            <li class="sort-list-item">
+              <button
+                class="sort-btn only"
+                data-name="running"
+                data-value="deactive"
+              >
+                🏃‍♂️ 🔴
+              </button>
+            </li>
+            <li class="sort-list-item">
+              <button
+                class="sort-btn only"
+                data-name="cycling"
+                data-value="deactive"
+              >
+                🚴‍♀️ 🔴
+              </button>
+            </li>
+            <li class="sort-list-item">
+              <button class="sort-btn" data-name="date" data-value="descend">
+                📅 ⬇️
+              </button>
+            </li>
+            <li class="sort-list-item">
+              <button class="sort-btn" data-name="distance" data-value="ascend">
+                🏃‍♂️ ⬆️
+              </button>
+            </li>
+            <li class="sort-list-item">
+              <button class="sort-btn" data-name="duration" data-value="ascend">
+                ⏱ ⬆️
+              </button>
+            </li>
+          </ul>
+          <span>(You can close this by clicking the button again)</span>
+        </div>
+
+        <!-- ⬆️⬇️ -->
+
+        <form class="form hidden">
+          <div class="loader-container hidden">
+            <div class="loader"></div>
+          </div>
+          <div class="form-invalid-input form-invalid-input-hidden">
+            Inputs have to be positive numbers!
+          </div>
+          <div class="form__row">
+            <label class="form__label">Type</label>
+            <select class="form__input form__input--type">
+              <option value="running">Running</option>
+              <option value="cycling">Cycling</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Distance</label>
+            <input class="form__input form__input--distance" placeholder="km" />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="min"
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Cadence</label>
+            <input
+              class="form__input form__input--cadence"
+              placeholder="step/min"
+            />
+          </div>
+          <div class="form__row form__row--hidden">
+            <label class="form__label">Elev Gain</label>
+            <input
+              class="form__input form__input--elevation"
+              placeholder="meters"
+            />
+          </div>
+          <button class="form__btn">OK</button>
+        </form>
+      </ul>
+
+      <div class="footer">
+        <p class="copyright">
+          &copy; Copyright by
+          <a
+            class="twitter-link"
+            target="_blank"
+            href="https://twitter.com/jonasschmedtmann"
+            >Jonas Schmedtmann</a
+          >. <br />
+          Edit, sort, and delete function, custom markers, location and weather
+          info and app info modal by
+          <a
+            class="twitter-link"
+            target="_blank"
+            href="https://twitter.com/m3rkvl"
+            >Murat Erkal</a
+          >.
+        </p>
+        <button class="info-btn">
+          <ion-icon name="information-circle-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <div id="map"></div>
+  </body>
+</html>

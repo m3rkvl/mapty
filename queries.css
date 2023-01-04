@@ -1,0 +1,150 @@
+@media (max-width: 72.875em) {
+  html {
+    font-size: 50%;
+  }
+
+  .sidebar {
+    width: 50%;
+    padding: 1rem 5rem 1rem 5rem;
+  }
+
+  .sort-btn {
+    font-size: 1.8rem;
+  }
+
+  .workout {
+    /* background-color: var(--color-dark--2); */
+    width: 100%;
+  }
+
+  .form-edit {
+    width: 100%;
+  }
+
+  .workout__delete {
+    width: 100%;
+    font-size: 1.8rem;
+  }
+
+  .info {
+    overflow: scroll;
+  }
+
+  #map {
+    flex: 1;
+    height: 100%;
+    background-color: var(--color-light--1);
+  }
+
+  .footer {
+    padding-top: 1rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 58.125em) {
+  .sort-btn {
+    font-size: 1.4rem;
+  }
+
+  .copyright {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 52em) {
+  html {
+    font-size: 50%;
+  }
+
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 50%;
+    padding: 2rem 5rem 1rem 5rem;
+  }
+
+  .logo {
+    margin-bottom: 2rem;
+  }
+
+  .sort-list {
+    gap: 3rem;
+  }
+
+  .sort-btn {
+    font-size: 2rem;
+  }
+
+  .workout {
+    /* background-color: var(--color-dark--2); */
+    width: 100%;
+  }
+
+  .form-edit {
+    width: 100%;
+  }
+
+  .workout__delete {
+    width: 100%;
+  }
+
+  .info {
+    overflow: scroll;
+  }
+
+  #map {
+    flex: 1;
+    height: 50%;
+    background-color: var(--color-light--1);
+  }
+
+  .footer {
+    padding-top: 1rem;
+    justify-content: center;
+  }
+
+  .copyright {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 36.875em) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media (max-width: 29.375em) {
+  .sort-list {
+    gap: 2rem;
+  }
+
+  .sort-btn {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 26.25em) {
+  .sort-list {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 22.8em) {
+  html {
+    font-size: 35%;
+  }
+
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #00c46a;
+    width: 35px;
+    height: 35px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+}
